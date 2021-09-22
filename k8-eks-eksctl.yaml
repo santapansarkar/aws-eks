@@ -1,0 +1,31 @@
+---
+kind: ClusterConfig
+apiVersion: eksctl.io/v1alpha5
+metadata:
+  name: k8-eks-eksctl
+  region: us-east-1
+  version: "1.19"
+vpc:
+  id: "vpc-cf1284b2"
+  subnets: 
+    public: 
+      us-east-1a:
+        id: "subnet-f90015b4"
+      us-east-1b:
+        id: "subnet-db387e84"  
+nodeGroups:
+  - name: eks-web-ng
+    amiFamily: AmazonLinux2            
+    instanceType: t2.micro
+    desiredCapacity: 1
+    minSize: 0
+    maxSize: 1
+    ssh:
+      allow: true
+      publicKeyName: us-east-1-KP
+      enableSsm: true
+    tags: 
+      Name : eks-eksctl 
+secretsEncryption:
+  # ARN of the KMS key
+  keyARN: arn:aws:kms:us-east-1:350102312519:key/dbb1b83e-d37b-4fb0-acca-c56d4f314b34
